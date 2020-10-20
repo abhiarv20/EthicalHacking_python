@@ -1,0 +1,10 @@
+#IP TABLE RULES
+#COMMAND TO RUN BEFORE dnsspoof.py
+
+iptables --flush
+iptables -I FORWARD -j NFQUEUE --queue-num 0
+iptables -I OUTPUT -j NFQUEUE --queue-num 0
+iptables -I INPUT -j NFQUEUE --queue-num 0
+
+
+

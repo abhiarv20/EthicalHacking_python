@@ -1,0 +1,22 @@
+
+
+CLONING WEBPAGE
+
+service apache2 start
+#starts apache service
+
+#enter your ip address in browser to check i.e. hosted locally
+
+#go to original website ex- facebook.com
+#right click and save page as....download
+
+#copy the files to /var/www/html..directory
+
+#save html file as index.html...refresh the page in web browser 
+#copied page succesfully
+
+service apache2 status
+#to check server status
+
+service apache2 stop
+#to stop service 
