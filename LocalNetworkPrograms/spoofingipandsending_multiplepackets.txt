@@ -1,0 +1,41 @@
+#here we are going to use scapy tool to execute multiple commands
+#inorder to contaminate it with many tcp packets and not allow it to run any program or use internet
+
+IPlayer = IP()
+#storing ip in variable
+IPlayer.show() 
+#shows ip parameters
+
+TCPlayer = TCP()  
+#storing tcp in variable
+
+pkt = IPlayer/TCPlayer
+#concaniates or combines two variables
+pkt.show()
+#shows pkt parameter
+
+pkt.src = "192.168.1.7"
+#parrot virtualbox ip
+pkt.dst = "192.168.1.5" 
+#windows ip address or target ip
+pkt.show()
+#shows the parameter of pkt
+
+send(pkt)
+#sends the actual packet
+#use WIRESHARK to check the packets send on the windows
+
+packet2 = Raw()
+#creates raw layer
+pkt = pkt/packet2  
+#combines pkt and packet2
+pkt.load = "Hello this is a secret message" 
+#creating load for tcp packet
+send(pkt)
+#sends the packet
+
+pkt.src = "8.8.8.8" 
+#spoofing with google ip address to out target machine 
+send(pkt)
+#it pretends to be send from google ip which can be seen using WIRESHARK
+

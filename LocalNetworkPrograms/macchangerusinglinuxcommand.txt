@@ -1,0 +1,12 @@
+
+command to change macaddress manually in linux terminal itself
+super user
+
+ifconfig eth0 down
+
+ifconfig eth0 hw ether <macaddress AA:BB:CC:DD:EE:FF>
+
+ifconfig eth0 up
+
+
+to reset: service NetworkManager restart
